@@ -1,6 +1,5 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -13,16 +12,16 @@ import (
 // getCmd represents the get command
 var getCmd = &cobra.Command{
 	Use:   "get",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Get AWS resources",
+	Long: `Get AWS resources. For example:
+	awsctl get ec2
+	awsctl get s3`,
+	RunE: getfunction,
+}
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("get called")
-	},
+func getfunction(cmd *cobra.Command, args []string) error {
+	fmt.Println("This is Get Command")
+	return nil
 }
 
 func init() {
