@@ -16,6 +16,8 @@ github.com/aws/aws-sdk-go-v2/internal/ini v1.3.30 h1:IVx9L7YFhpPq0tTnGo8u8TpluFu
 github.com/aws/aws-sdk-go-v2/internal/ini v1.3.30/go.mod h1:vsbq62AOBwQ1LJ/GWKFxX8beUEYeRp/Agitrxee2/qM=
 github.com/aws/aws-sdk-go-v2/internal/v4a v1.0.21 h1:QdxdY43AiwsqG/VAqHA7bIVSm3rKr8/p9i05ydA0/RM=
 github.com/aws/aws-sdk-go-v2/internal/v4a v1.0.21/go.mod h1:QtIEat7ksHH8nFItljyvMI0dGj8lipK2XZ4PhNihTEU=
+github.com/aws/aws-sdk-go-v2/service/ec2 v1.86.1 h1:LCRt6GgCjXGvWvJC6e6f84wDjlZN6H0u+aoAaq2RP9k=
+github.com/aws/aws-sdk-go-v2/service/ec2 v1.86.1/go.mod h1:2HxUY7Pkfmt1uIhPrFp0/O6+0aGoLaGIN5tXp/rYDL8=
 github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.11 h1:y2+VQzC6Zh2ojtV2LoC0MNwHWc6qXv/j2vrQtlftkdA=
 github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.11/go.mod h1:iV4q2hsqtNECrfmlXyord9u4zyuFEJX9eLgLpSPzWA8=
 github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.1.24 h1:Qmm8klpAdkuN3/rPrIMa/hZQ1z93WMBPjOzdAsbSnlo=
@@ -39,6 +41,7 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/inconshreveable/mousetrap v1.0.1 h1:U3uMjPSQEBMNp1lFxmllqCPM6P5u/Xq7Pgzkat/bFNc=
 github.com/inconshreveable/mousetrap v1.0.1/go.mod h1:vpF70FUmC8bwa3OWnCshd2FqLfsEA9PFc4w1p2J65bw=
+github.com/jmespath/go-jmespath v0.4.0 h1:BEgLn5cpjn8UN1mAw4NjwDrS35OdebyEtFe+9YPoQUg=
 github.com/jmespath/go-jmespath v0.4.0/go.mod h1:T8mJZnbsbmF+m6zOOFylbeCJqk5+pHWvzYPziyZiYoo=
 github.com/jmespath/go-jmespath/internal/testify v1.5.1/go.mod h1:L3OGu8Wl2/fWfCI6z80xFu9LTZmf1ZRjMHUOPmWr69U=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
