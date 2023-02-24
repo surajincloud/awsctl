@@ -1,0 +1,18 @@
+name: Other
+description: Please give a description.
+title: '[OTHER] <description>'
+labels: ['triage/awaiting', 'triage/accepted', 'other']
+body:
+  - type: markdown
+    attributes:
+      value: '# Other issue'
+  - type: textarea
+    id: issuedescription
+    attributes:
+      label: Please provide all the data here.
+      description: 
+    validations:
+      required: false
+  
+  
+  
