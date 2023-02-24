@@ -1,7 +1,7 @@
 name:  Bug Report
 description: Report a bug encountered in this repo
 title: '[Bug] <description>'
-labels: ['triage/awaiting','bug','triage/accepted']
+labels: ['bug']
 body:
   - type: textarea
     id: description
