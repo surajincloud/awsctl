@@ -1,7 +1,7 @@
 name: Feature Request
 description: Suggest a feature to this Repo
 title: '[FEATURE] <description>'
-labels: ['triage/awaiting', 'enhancement', 'feat']
+labels: ['enhancement']
 body:
   - type: textarea
     id: description
