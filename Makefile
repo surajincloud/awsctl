@@ -3,6 +3,7 @@ BINARY := awsctl
 
 build:	awsctl
 
+
 clean:
 	@rm -rf $(BINARY)
 
