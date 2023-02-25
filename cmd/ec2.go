@@ -19,7 +19,7 @@ var ec2Cmd = &cobra.Command{
 	Short: "Print ec2 related information",
 	Long: `For example,
 		awsctl get ec2`,
-	Run: ec2FunDescribe,
+	Run: getEC2command,
 }
 
 type EC2DesAPI interface {
@@ -35,7 +35,7 @@ func GetEc2Info(ctx context.Context, input *ec2.DescribeInstancesInput, api EC2D
 
 }
 
-func ec2FunDescribe(cmd *cobra.Command, args []string) {
+func getEC2command(cmd *cobra.Command, args []string) {
 
 	ctx := context.TODO() // Unclear Context
 	cfg, err := config.LoadDefaultConfig(ctx)
