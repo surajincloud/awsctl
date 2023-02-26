@@ -23,19 +23,6 @@ var ec2Cmd = &cobra.Command{
 	Run: getEC2command,
 }
 
-// type EC2DesAPI interface {
-// 	DescribeInstances(ctx context.Context,
-// 		params *ec2.DescribeInstancesInput,
-// 		optFns ...func(*ec2.Options)) (*ec2.DescribeInstancesOutput, error)
-// }
-
-// // Returns info about ec2 instance
-// func GetEc2Info(ctx context.Context, input *ec2.DescribeInstancesInput, api EC2DesAPI) (*ec2.DescribeInstancesOutput, error) {
-
-// 	return api.DescribeInstances(ctx, input)
-
-// }
-
 func getEC2command(cmd *cobra.Command, args []string) {
 
 	ctx := context.TODO() // Unclear Context
