@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	"github.com/spf13/cobra"
+	"github.com/surajincloud/awsctl/pkg"
 )
 
 // ec2Cmd represents the ec2 command
@@ -22,18 +23,18 @@ var ec2Cmd = &cobra.Command{
 	Run: getEC2command,
 }
 
-type EC2DesAPI interface {
-	DescribeInstances(ctx context.Context,
-		params *ec2.DescribeInstancesInput,
-		optFns ...func(*ec2.Options)) (*ec2.DescribeInstancesOutput, error)
-}
+// type EC2DesAPI interface {
+// 	DescribeInstances(ctx context.Context,
+// 		params *ec2.DescribeInstancesInput,
+// 		optFns ...func(*ec2.Options)) (*ec2.DescribeInstancesOutput, error)
+// }
 
-// Returns info about ec2 instance
-func GetEc2Info(ctx context.Context, input *ec2.DescribeInstancesInput, api EC2DesAPI) (*ec2.DescribeInstancesOutput, error) {
+// // Returns info about ec2 instance
+// func GetEc2Info(ctx context.Context, input *ec2.DescribeInstancesInput, api EC2DesAPI) (*ec2.DescribeInstancesOutput, error) {
 
-	return api.DescribeInstances(ctx, input)
+// 	return api.DescribeInstances(ctx, input)
 
-}
+// }
 
 func getEC2command(cmd *cobra.Command, args []string) {
 
@@ -48,7 +49,7 @@ func getEC2command(cmd *cobra.Command, args []string) {
 
 	input := &ec2.DescribeInstancesInput{}
 
-	info, err := GetEc2Info(ctx, input, client)
+	info, err := pkg.GetEc2Info(ctx, input, client)
 	if err != nil {
 		log.Fatal("Error Occured while retrieving Information", err)
 	}
