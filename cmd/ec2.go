@@ -44,22 +44,27 @@ func getEC2command(cmd *cobra.Command, args []string) {
 	}
 
 	client := ec2.NewFromConfig(cfg)
+	
 
-	input := &ec2.DescribeInstancesInput{} // Res is DryRunOperation if everything is OK
+	input := &ec2.DescribeInstancesInput{}
 
 	info, err := GetEc2Info(ctx, input, client)
 	if err != nil {
 		log.Fatal("Error Occured while retrieving Information", err)
 	}
 
+	//Print Instance Details
+	instanceName:=""
+	fmt.Println("NAME \t INSTANCE_ID \t    INSTANCE_TYPE \t PRIVATE IP")
 	for _, r := range info.Reservations {
-		fmt.Printf("\n Reservations ID : %s ", *r.ReservationId)
-		fmt.Printf("\n Owner ID : %s ", *r.OwnerId)
-		// fmt.Printf("\n Requester ID : %s \n", *r.RequesterId) // Returing nil 
-
+		
 		for _, i := range r.Instances {
-
-			fmt.Printf("\n Instances Launch Time: %s Instance ID: %s \n", i.LaunchTime, *i.InstanceId)
+			for _,j:= range i.Tags{
+				if *j.Key == "Name"{
+					instanceName=*j.Value
+				}
+			}
+			fmt.Println(instanceName,"\t",*i.InstanceId,"\t",*&i.InstanceType,"\t",*i.PrivateIpAddress)	
 		}
 	}
 
