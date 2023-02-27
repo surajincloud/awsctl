@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	"github.com/spf13/cobra"
@@ -23,22 +24,9 @@ var ec2Cmd = &cobra.Command{
 	Run: getEC2command,
 }
 
-// type EC2DesAPI interface {
-// 	DescribeInstances(ctx context.Context,
-// 		params *ec2.DescribeInstancesInput,
-// 		optFns ...func(*ec2.Options)) (*ec2.DescribeInstancesOutput, error)
-// }
-
-// // Returns info about ec2 instance
-// func GetEc2Info(ctx context.Context, input *ec2.DescribeInstancesInput, api EC2DesAPI) (*ec2.DescribeInstancesOutput, error) {
-
-// 	return api.DescribeInstances(ctx, input)
-
-// }
-
 func getEC2command(cmd *cobra.Command, args []string) {
 
-	ctx := context.TODO() // Unclear Context
+	ctx := context.TODO()
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatal("Config Error Occured", err)
@@ -54,18 +42,19 @@ func getEC2command(cmd *cobra.Command, args []string) {
 		log.Fatal("Error Occured while retrieving Information", err)
 	}
 
-	//Print Instance Details
-	instanceName:=""
+	//Instance Details
+	instanceName:="-"
 	fmt.Println("NAME \t INSTANCE_ID \t    INSTANCE_TYPE \t PRIVATE IP")
 	for _, r := range info.Reservations {
 		
 		for _, i := range r.Instances {
 			for _,j:= range i.Tags{
 				if *j.Key == "Name"{
-					instanceName=*j.Value
+					instanceName=aws.ToString(j.Value)
 				}
 			}
-			fmt.Println(instanceName,"\t",*i.InstanceId,"\t",*&i.InstanceType,"\t",*i.PrivateIpAddress)	
+
+			fmt.Println(instanceName,"\t",aws.ToString(i.InstanceId),"\t",*&i.InstanceType,"\t",aws.ToString(*&i.PrivateIpAddress))
 		}
 	}
 
