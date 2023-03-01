@@ -4,13 +4,9 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"context"
 	"fmt"
-	"log"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"os"
+	"text/tabwriter"
 	"github.com/spf13/cobra"
 	"github.com/surajincloud/awsctl/pkg"
 )
@@ -26,38 +22,19 @@ var ec2Cmd = &cobra.Command{
 
 func getEC2command(cmd *cobra.Command, args []string) {
 
-	ctx := context.TODO()
-	cfg, err := config.LoadDefaultConfig(ctx)
-	if err != nil {
-		log.Fatal("Config Error Occured", err)
+	var ec2Instance [] pkg.EC2Instance
+	ec2Instance =pkg.GetEC2Instance()
+	w:= tabwriter.NewWriter(os.Stdout,18,5,3,' ',tabwriter.TabIndent)
+	defer w.Flush()
+	fmt.Fprintln(w,"NAME", "\t" ,"INSTANCE_ID","\t" ,"INSTANCE_TYPE", "\t", "PRIVATE IP")
+	for _,i:=range ec2Instance{
+		fmt.Fprintln(
+		w,i.InstanceName,"\t",
+		i.InstanceID,"\t",
+		i.InstanceType,"\t",
+		i.InstancePrivateIP,)
 	}
-
-	client := ec2.NewFromConfig(cfg)
 	
-
-	input := &ec2.DescribeInstancesInput{}
-
-	info, err := pkg.GetEc2Info(ctx, input, client)
-	if err != nil {
-		log.Fatal("Error Occured while retrieving Information", err)
-	}
-
-	//Instance Details
-	instanceName:="-"
-	fmt.Println("NAME \t INSTANCE_ID \t    INSTANCE_TYPE \t PRIVATE IP")
-	for _, r := range info.Reservations {
-		
-		for _, i := range r.Instances {
-			for _,j:= range i.Tags{
-				if *j.Key == "Name"{
-					instanceName=aws.ToString(j.Value)
-				}
-			}
-
-			fmt.Println(instanceName,"\t",aws.ToString(i.InstanceId),"\t",*&i.InstanceType,"\t",aws.ToString(*&i.PrivateIpAddress))
-		}
-	}
-
 }
 
 func init() {
