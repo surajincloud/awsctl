@@ -5,8 +5,10 @@ package cmd
 
 import (
 	"fmt"
-
+	"os"
+	"text/tabwriter"
 	"github.com/spf13/cobra"
+	"github.com/surajincloud/awsctl/pkg"
 )
 
 // ec2Cmd represents the ec2 command
@@ -15,21 +17,26 @@ var ec2Cmd = &cobra.Command{
 	Short: "Print ec2 related information",
 	Long: `For example,
 		awsctl get ec2`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("ec2 called")
-	},
+	Run: getEC2command,
+}
+
+func getEC2command(cmd *cobra.Command, args []string) {
+
+	var ec2Instance [] pkg.EC2Instance
+	ec2Instance =pkg.GetEC2Instance()
+	w:= tabwriter.NewWriter(os.Stdout,18,5,3,' ',tabwriter.TabIndent)
+	defer w.Flush()
+	fmt.Fprintln(w,"NAME", "\t" ,"INSTANCE_ID","\t" ,"INSTANCE_TYPE", "\t", "PRIVATE IP")
+	for _,i:=range ec2Instance{
+		fmt.Fprintln(
+		w,i.InstanceName,"\t",
+		i.InstanceID,"\t",
+		i.InstanceType,"\t",
+		i.InstancePrivateIP,)
+	}
+	
 }
 
 func init() {
 	getCmd.AddCommand(ec2Cmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// ec2Cmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// ec2Cmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
