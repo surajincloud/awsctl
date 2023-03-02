@@ -1,16 +1,14 @@
 # Contributing Guidelines
+Contributions to awsctl are welcome via GitHub Pull Requests. This document outlines the steps necessary to get your contribution accepted.
 
-Contributions are welcome at awsctl via GitHub Pull Requests. This document outlines the process to help get your contribution accepted.
-
-Any type of contribution is welcome; from new features, bug fixes, or documentation improvements. However, VMware/Bitnami will review the proposals and perform a triage over them. By doing so, we will ensure that the most valuable contributions for the community will be implemented in due time.
+Contributions of any kind are appreciated, whether they be new features, bug fixes, or documentation enhancements. This way, we can ensure that the most significant contributions to the community are adopted on time.
 
 ## How to Contribute
 
-1. Make Sure to follow our code of conduct before proceeding.
-2. Fork the updated repository, develop, and test your changes.
-3. Use the ``make`` cmd to generate binary which help to use all the available commands.
-4. Submit a pull request.
-
+1. Before proceeding, ensure that you have read and understood our code of conduct.
+2. Fork the updated repository, make modifications, and test them.
+3. Use the ``make`` command to produce a binary that will allow you to execute all of the available commands.
+4. Make a pull request.
 
 
 ### Technical Requirements
@@ -24,5 +22,5 @@ When submitting a PR make sure that it:
 
 ### PR Approval
 
-1. Changes are manually reviewed by VMware/Bitnami team members.
+1. Changes are manually reviewed.
 2. When the PR passes all tests, the PR is merged by the reviewer(s) in the GitHub `main` branch.
