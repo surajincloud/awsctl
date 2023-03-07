@@ -35,15 +35,30 @@ func getS3(cmd *cobra.Command, args []string) error {
 	// Create an Amazon S3 service client
 	client := s3.NewFromConfig(cfg)
 
-	out, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
+	out, err := client.ListBuckets(ctx,&s3.ListBucketsInput{})
+	
+	
+
 	if err != nil {
 		log.Fatal(err)
 	}
-	w := tabwriter.NewWriter(os.Stdout, 5, 2, 3, ' ', tabwriter.TabIndent)
+	w := tabwriter.NewWriter(os.Stdout, 10, 5, 2, ' ', tabwriter.TabIndent)
 	defer w.Flush()
-	fmt.Fprintln(w, "NAME", "\t", "CREATED_AT")
+	fmt.Fprintln(w, "NAME", "\t","CREATED_AT","\t","SIZE")
+	
 	for _, i := range out.Buckets {
-		fmt.Fprintln(w, aws.ToString(i.Name), "\t", i.CreationDate)
+		info,err:= client.ListObjectsV2(ctx,&s3.ListObjectsV2Input{
+			Bucket: aws.String(*i.Name),
+		})
+		if err!=nil{
+			log.Fatal("Error Occured",err)
+		}
+		for _,j:=range info.Contents{
+			size:= j.Size/1024
+			fmt.Fprintln(w, aws.ToString(i.Name), "\t", i.CreationDate,"\t",size,"KB")
+		}
+		
+		
 	}
 	return nil
 }
