@@ -1,5 +1,5 @@
 # awsctl
-AWS CLI written in Go
+kubectl like AWS CLI written in Go
 
 
 
