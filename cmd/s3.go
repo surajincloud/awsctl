@@ -4,16 +4,13 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"context"
 	"fmt"
-	"log"
 	"os"
 	"text/tabwriter"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/spf13/cobra"
-	"github.com/surajincloud/awsctl/pkg"
+	"github.com/surajincloud/awsctl/pkg/s3API"
 )
 
 // s3Cmd represents the s3 command
@@ -27,29 +24,14 @@ var s3Cmd = &cobra.Command{
 
 func getS3(cmd *cobra.Command, args []string) error {
 
-	ctx := context.TODO()
-	client := pkg.S3Client(ctx)
-
-	out, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
-
-	if err != nil {
-		log.Fatal(err)
-	}
 	w := tabwriter.NewWriter(os.Stdout, 10, 5, 2, ' ', tabwriter.TabIndent)
 	defer w.Flush()
 	fmt.Fprintln(w, "NAME", "\t", "CREATED_AT", "\t", "SIZE")
 
-	for _, i := range out.Buckets {
-		info, err := pkg.GetBucketSize(*i.Name, ctx)
-		if err != nil {
-			log.Fatal("Error Occured", err)
-		}
-		for _, j := range info.Contents {
-			size := j.Size / 1024
-			fmt.Fprintln(w, aws.ToString(i.Name), "\t", i.CreationDate, "\t", size, "KB")
-		}
-
+	for _, i := range s3API.GetBucket() {
+		fmt.Fprintln(w, aws.String(i.Name), "\t", i.CreatedAt, "\t", i.Size, "KB")
 	}
+
 	return nil
 }
 
