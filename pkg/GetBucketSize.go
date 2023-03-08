@@ -12,7 +12,7 @@ import (
 
 func GetBucketSize(Name string, ctx context.Context) (*s3.ListObjectsV2Output, error) {
 
-	client := S3Clinet(ctx)
+	client := S3Client(ctx)
 	size, err := client.ListObjectsV2(ctx, &s3.ListObjectsV2Input{
 		Bucket: aws.String(Name),
 	})
@@ -24,7 +24,7 @@ func GetBucketSize(Name string, ctx context.Context) (*s3.ListObjectsV2Output, e
 
 }
 
-func S3Clinet(ctx context.Context) *s3.Client {
+func S3Client(ctx context.Context) *s3.Client {
 
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
@@ -32,6 +32,5 @@ func S3Clinet(ctx context.Context) *s3.Client {
 	}
 	client := s3.NewFromConfig(cfg)
 
-	
 	return client
 }

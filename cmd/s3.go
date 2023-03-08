@@ -28,7 +28,7 @@ var s3Cmd = &cobra.Command{
 func getS3(cmd *cobra.Command, args []string) error {
 
 	ctx := context.TODO()
-	client := pkg.S3Clinet(ctx)
+	client := pkg.S3Client(ctx)
 
 	out, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 
