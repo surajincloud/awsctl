@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"text/tabwriter"
 
@@ -28,7 +29,12 @@ func getS3(cmd *cobra.Command, args []string) error {
 	defer w.Flush()
 	fmt.Fprintln(w, "NAME", "\t", "CREATED_AT", "\t", "SIZE")
 
-	for _, i := range s3API.GetBucket() {
+	bucketList, err := s3API.GetBucket()
+	if err != nil {
+		log.Fatal("Unable to get Data From Aws")
+	}
+
+	for _, i := range bucketList {
 		fmt.Fprintln(w, aws.String(i.Name), "\t", i.CreatedAt, "\t", i.Size, "KB")
 	}
 

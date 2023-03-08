@@ -17,7 +17,7 @@ type Bucket struct {
 }
 
 // Returns Info in the form []Bucket
-func GetBucket() []Bucket {
+func GetBucket() ([]Bucket, error) {
 
 	var s3Bucket []Bucket
 
@@ -40,7 +40,7 @@ func GetBucket() []Bucket {
 		}
 	}
 
-	return s3Bucket
+	return s3Bucket, nil
 
 }
 
