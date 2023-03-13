@@ -41,7 +41,6 @@ func GetBucket() ([]Bucket, error) {
 	}
 
 	return s3Bucket, nil
-
 }
 
 // Returns Bucket Size in Bytes
