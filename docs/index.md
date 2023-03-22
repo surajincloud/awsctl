@@ -13,4 +13,5 @@ Check out Usage page for [Usage](./usage) instructions.
 
 ## Contributing
 
-Check out Contributing page for [Contributing](./contributing) instructions.
+Check out Contributing page for [Contributing](https://github.com/surajincloud/awsctl/blob/main/CONTRIBUTING.md) instructions.
+
