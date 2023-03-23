@@ -38,7 +38,7 @@ func getRdsCommand(cmd *cobra.Command, args []string) error {
 	w := tabwriter.NewWriter(os.Stdout, 5, 2, 3, ' ', tabwriter.TabIndent)
 	defer w.Flush()
 
-	fmt.Fprintln(w, "DB_INSTANCE_ID\tSTATUS\tENDPOINT\tENGINE\tVERSION")
+	fmt.Fprintln(w, "DB_INSTANCE_ID", "\t", "STATUS", "\t", "ENDPOINT", "\t", "ENGINE", "\t", "VERSION")
 
 	for _, i := range rdsInstances {
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", i.DBInstanceID, i.Status, i.Endpoint, i.Engine, i.Version)
