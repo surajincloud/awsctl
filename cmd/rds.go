@@ -10,22 +10,22 @@ import (
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
-	"github.com/surajincloud/awsctl/pkg"
+	"github.com/surajincloud/awsctl/pkg/rds"
 )
 
 // rdsCmd represent the rds command
 var rdsCmd = &cobra.Command{
 	Use:   "rds",
 	Short: "Retrieve information about AWS RDS instances",
-	Long: `This command retrieves information about AWS RDS instances, including their instance IDs, engines, statuses, and endpoints.
-Example :
+	Long: `This command retrieves information about AWS RDS instances, including their instance ID, status, endpoint, engine and version.
+Example:
 	awsctl get rds`,
 	RunE: getRdsCommand,
 }
 
 func getRdsCommand(cmd *cobra.Command, args []string) error {
 
-	rdsInstances, err := pkg.GetRDSInstances()
+	rdsInstances, err := rds.GetRDSInstances()
 
 	if err != nil {
 		return errors.New("failed to retrive RDS instances : " + err.Error())
@@ -38,10 +38,10 @@ func getRdsCommand(cmd *cobra.Command, args []string) error {
 	w := tabwriter.NewWriter(os.Stdout, 5, 2, 3, ' ', tabwriter.TabIndent)
 	defer w.Flush()
 
-	fmt.Fprintln(w, "DB_INSTANCE_ID\tENGINE\tSTATUS\tENDPOINT")
+	fmt.Fprintln(w, "DB_INSTANCE_ID\tSTATUS\tENDPOINT\tENGINE\tVERSION")
 
 	for _, i := range rdsInstances {
-		fmt.Fprintf(w, "%s\t%s\t%s\t%s\n", i.DBInstanceID, i.Engine, i.Status, i.Endpoint)
+		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", i.DBInstanceID, i.Status, i.Endpoint, i.Engine, i.Version)
 	}
 	return nil
 }

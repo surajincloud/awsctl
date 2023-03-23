@@ -1,4 +1,4 @@
-package pkg
+package rds
 
 import (
 	"context"
@@ -13,6 +13,7 @@ type RDSInstance struct {
 	DBInstanceID string
 	Engine       string
 	Status       string
+	Version      string
 	Endpoint     string
 }
 
@@ -40,9 +41,10 @@ func GetRDSInstances() ([]RDSInstance, error) {
 		}
 		rdsInstances = append(rdsInstances, RDSInstance{
 			DBInstanceID: aws.ToString(dbInstance.DBInstanceIdentifier),
-			Engine:       aws.ToString(dbInstance.Engine),
 			Status:       aws.ToString(dbInstance.DBInstanceStatus),
 			Endpoint:     endpoint,
+			Engine:       aws.ToString(dbInstance.Engine),
+			Version:      aws.ToString(dbInstance.EngineVersion),
 		})
 	}
 
