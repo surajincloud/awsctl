@@ -22,7 +22,7 @@ func GetRDSInstances() ([]RDSInstance, error) {
 
 	cfg, err := config.LoadDefaultConfig(context.Background())
 	if err != nil {
-		return nil, errors.New("failed to load AWS config:" + err.Error())
+		return nil, errors.New("failed to load AWS config: " + err.Error())
 	}
 
 	client := rds.NewFromConfig(cfg)

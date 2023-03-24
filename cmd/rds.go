@@ -4,7 +4,6 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"text/tabwriter"
@@ -28,7 +27,7 @@ func getRdsCommand(cmd *cobra.Command, args []string) error {
 	rdsInstances, err := rds.GetRDSInstances()
 
 	if err != nil {
-		return errors.New("failed to retrive RDS instances : " + err.Error())
+		return err
 	}
 
 	if len(rdsInstances) == 0 {
@@ -41,7 +40,14 @@ func getRdsCommand(cmd *cobra.Command, args []string) error {
 	fmt.Fprintln(w, "DB_INSTANCE_ID", "\t", "STATUS", "\t", "ENDPOINT", "\t", "ENGINE", "\t", "VERSION")
 
 	for _, i := range rdsInstances {
-		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", i.DBInstanceID, i.Status, i.Endpoint, i.Engine, i.Version)
+		fmt.Fprintln(
+			w,
+			i.DBInstanceID, "\t",
+			i.Status, "\t",
+			i.Endpoint, "\t",
+			i.Engine, "\t",
+			i.Version, "\t",
+		)
 	}
 	return nil
 }
