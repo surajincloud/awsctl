@@ -21,7 +21,7 @@ func GetEC2Instance() []EC2Instance {
 	var ec2Instance []EC2Instance
 	info, err := DescribeInstance()
 	if err != nil {
-		log.Fatal("Error Occured while retrieving Information", err)
+		log.Fatal("Error occured while retrieving information", err)
 	}
 	instanceName := "-"
 	for _, r := range info.Reservations {
@@ -48,7 +48,7 @@ func GetInstanceWithKeyOnly(tagName *string) []EC2Instance {
 	var ec2Instance []EC2Instance
 	info, err := DescribeInstance()
 	if err != nil {
-		log.Fatal("Unable to get info from Aws Try Again")
+		log.Fatal("Unable to get info from AWS Try Again")
 	}
 	for _, r := range info.Reservations {
 		for _, i := range r.Instances {
