@@ -1,4 +1,4 @@
-package VPC
+package vpc
 
 import (
 	"context"
