@@ -10,7 +10,7 @@ import (
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
-	"github.com/surajincloud/awsctl/pkg/EC2"
+	"github.com/surajincloud/awsctl/pkg/ec2"
 )
 
 var ec2Cmd = &cobra.Command{
@@ -30,15 +30,15 @@ var ec2Cmd = &cobra.Command{
 }
 
 func getEc2instanceTag(cmd *cobra.Command, args []string) {
-	var ec2Instance []EC2.EC2Instance
+	var ec2Instance []ec2.EC2Instance
 	Keys, _ := cmd.Flags().GetString("tags")
 
-	if strings.Contains(Keys, "=") { // Both a Key and Values are passed
+	if strings.Contains(Keys, "=") {
 		tags := strings.SplitN(Keys, "=", 2)
 		value := strings.Split(tags[1], ",")
-		ec2Instance = EC2.GetInstanceWithKeyValue(&tags[0], value)
-	} else { // Only if a Key is passed
-		ec2Instance = EC2.GetInstanceWithKeyOnly(&Keys)
+		ec2Instance = ec2.DescribeInstance(*&tags[0], value)
+	} else {
+		ec2Instance = ec2.DescribeInstance(*&Keys, nil)
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 18, 5, 3, ' ', tabwriter.TabIndent)
@@ -56,8 +56,8 @@ func getEc2instanceTag(cmd *cobra.Command, args []string) {
 
 func getEC2command(cmd *cobra.Command, args []string) {
 
-	var ec2Instance []EC2.EC2Instance
-	ec2Instance = EC2.GetEC2Instance()
+	var ec2Instance []ec2.EC2Instance
+	ec2Instance = ec2.DescribeInstance("", nil)
 	w := tabwriter.NewWriter(os.Stdout, 18, 5, 3, ' ', tabwriter.TabIndent)
 	defer w.Flush()
 
