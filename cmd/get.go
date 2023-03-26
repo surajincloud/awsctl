@@ -15,7 +15,8 @@ var getCmd = &cobra.Command{
 	Short: "Get AWS resources",
 	Long: `Get AWS resources. For example:
 	awsctl get ec2
-	awsctl get s3`,
+	awsctl get s3
+	awsctl get rds`,
 	RunE: getfunction,
 }
 
