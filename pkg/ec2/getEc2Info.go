@@ -20,8 +20,8 @@ func DescribeInstance(tagName string, tagValue []string) []EC2Instance {
 
 	var ec2Instance []EC2Instance
 	input := &ec2.DescribeInstancesInput{}
-	client, _ := Ec2Client()
-	info, err := client.DescribeInstances(context.TODO(), input)
+	ctx, client := Ec2Client()
+	info, err := client.DescribeInstances(ctx, input)
 	if err != nil {
 		log.Fatal("Error occured while retrieving information")
 	}
@@ -58,12 +58,12 @@ func DescribeInstance(tagName string, tagValue []string) []EC2Instance {
 	return ec2Instance
 }
 
-func Ec2Client() (*ec2.Client, context.Context) {
+func Ec2Client() (context.Context,*ec2.Client, ) {
 	ctx := context.TODO()
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatal("Config Error Occured", err)
 	}
 	Ec2client := ec2.NewFromConfig(cfg)
-	return Ec2client, ctx
+	return  ctx ,Ec2client
 }

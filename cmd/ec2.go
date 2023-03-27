@@ -18,46 +18,24 @@ var ec2Cmd = &cobra.Command{
 	Short: "Print ec2 related information",
 	Long: `For example,
 		awsctl get ec2`,
-	Run: func(cmd *cobra.Command, args []string) {
-		tag, _ := cmd.Flags().GetString("tags")
-		if tag != "" {
-			getEc2instanceTag(cmd, args)
-		} else {
-			getEC2command(cmd, args)
-		}
-
-	},
+	Run: getEC2,
 }
 
-func getEc2instanceTag(cmd *cobra.Command, args []string) {
+
+func getEC2(cmd *cobra.Command, args []string) {
+
 	var ec2Instance []ec2.EC2Instance
 	Keys, _ := cmd.Flags().GetString("tags")
-
-	if strings.Contains(Keys, "=") {
+	if Keys!="" && strings.Contains(Keys, "=") {
 		tags := strings.SplitN(Keys, "=", 2)
 		value := strings.Split(tags[1], ",")
 		ec2Instance = ec2.DescribeInstance(*&tags[0], value)
-	} else {
+	} else if Keys!=""{
 		ec2Instance = ec2.DescribeInstance(*&Keys, nil)
+	}else{
+		ec2Instance = ec2.DescribeInstance("", nil)
 	}
-
-	w := tabwriter.NewWriter(os.Stdout, 18, 5, 3, ' ', tabwriter.TabIndent)
-	defer w.Flush()
-
-	fmt.Fprintln(w, "KEYS", "\t", "INSTANCE_ID", "\t", "INSTANCE_TYPE", "\t", "PRIVATE IP")
-	for _, i := range ec2Instance {
-		fmt.Fprintln(
-			w, i.InstanceName, "\t",
-			i.InstanceID, "\t",
-			i.InstanceType, "\t",
-			i.InstancePrivateIP)
-	}
-}
-
-func getEC2command(cmd *cobra.Command, args []string) {
-
-	var ec2Instance []ec2.EC2Instance
-	ec2Instance = ec2.DescribeInstance("", nil)
+	
 	w := tabwriter.NewWriter(os.Stdout, 18, 5, 3, ' ', tabwriter.TabIndent)
 	defer w.Flush()
 
