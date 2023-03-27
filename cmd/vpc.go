@@ -6,6 +6,7 @@ import (
 	"os"
 	"text/tabwriter"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/spf13/cobra"
 	"github.com/surajincloud/awsctl/pkg/vpc"
 )
@@ -29,11 +30,12 @@ func getVPC(cmd *cobra.Command, args []string) error {
 	fmt.Fprintln(w, "NAME", "\t", "State", "\t", "DEFAULT", "\t", "IPv4CIDR", "\t", "VPCID")
 	for _, i := range vpclist {
 		fmt.Fprintln(w,
-			*i.Name, "\t",
-			*i.State, "\t",
-			i.Default, "\t",
-			*i.Ipv4Cidr, "\t",
-			*i.VpcID)
+			aws.String(*i.Name), "\t",
+			aws.String(*i.State), "\t",
+			aws.Bool(i.Default), "\t",
+			aws.String(*i.Ipv4Cidr), "\t",
+			aws.String(*i.VpcID),
+		)
 	}
 	return nil
 }
