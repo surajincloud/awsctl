@@ -58,7 +58,7 @@ func DescribeInstance(tagName string, tagValue []string) []EC2Instance {
 	return ec2Instance
 }
 
-func Ec2Client() (context.Context,*ec2.Client, ) {
+func Ec2Client() (context.Context,*ec2.Client) {
 	ctx := context.TODO()
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
