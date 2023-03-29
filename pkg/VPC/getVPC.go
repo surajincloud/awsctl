@@ -48,6 +48,6 @@ func GetVPC() ([]Vpc, error) {
 		}
 	}
 
-	return vpcList, er
+	return vpcList, err
 
 }
