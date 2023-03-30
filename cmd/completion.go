@@ -76,7 +76,7 @@ func fishCompletion(cmd *cobra.Command, args []string) {
 
 // powerShellCompletion generates PowerShell completion scripts
 func powerShellCompletion(cmd *cobra.Command, args []string) {
-	err := rootCmd.GenPowerShellCompletionFile("awsctl-completion.ps")
+	err := rootCmd.GenPowerShellCompletionFile("awsctl-completion.ps1")
 	if err != nil {
 		log.Fatal(err)
 	}
