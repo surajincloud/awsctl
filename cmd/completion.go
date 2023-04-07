@@ -52,6 +52,15 @@ var (
 // completionCmdRun runs the completion command
 func completionCmdRun(cmd *cobra.Command, args []string) error {
 	err := cmd.Help()
+
+	// TODO : Write better error message
+	if len(args) != 1 {
+		return errors.New("invalid command")
+	}
+	if args[0] != "bash" && args[0] != "zsh" && args[0] != "fish" && args[0] != "powershell" {
+		log.Fatalf("sorry, completion support is not yet implemented for %v", args)
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}
