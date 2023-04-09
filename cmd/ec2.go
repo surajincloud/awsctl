@@ -29,11 +29,11 @@ func getEC2(cmd *cobra.Command, args []string) {
 	if Keys!="" && strings.Contains(Keys, "=") {
 		tags := strings.SplitN(Keys, "=", 2)
 		value := strings.Split(tags[1], ",")
-		ec2Instance = ec2.DescribeInstance(*&tags[0], value)
+		ec2Instance = ec2.DescribeInstance(*&tags[0], value,cmd,args)
 	} else if Keys!=""{
-		ec2Instance = ec2.DescribeInstance(*&Keys, nil)
+		ec2Instance = ec2.DescribeInstance(*&Keys, nil,cmd,args)
 	}else{
-		ec2Instance = ec2.DescribeInstance("", nil)
+		ec2Instance = ec2.DescribeInstance("", nil,cmd,args)
 	}
 	
 	w := tabwriter.NewWriter(os.Stdout, 18, 5, 3, ' ', tabwriter.TabIndent)
@@ -55,4 +55,5 @@ var keyValue string
 func init() {
 	getCmd.AddCommand(ec2Cmd)
 	ec2Cmd.Flags().StringVarP(&keyValue, "tags", "t", keyValue, "get instance using key value Example:--tags key=value1,value2,value3")
+	ec2Cmd.PersistentFlags().String("region","","--region=us-east-1")
 }
