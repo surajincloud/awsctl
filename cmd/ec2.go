@@ -55,5 +55,4 @@ var keyValue string
 func init() {
 	getCmd.AddCommand(ec2Cmd)
 	ec2Cmd.Flags().StringVarP(&keyValue, "tags", "t", keyValue, "get instance using key value Example:--tags key=value1,value2,value3")
-	ec2Cmd.PersistentFlags().String("region","","--region=us-east-1")
 }

@@ -61,12 +61,14 @@ func DescribeInstance(tagName string, tagValue []string, cmd *cobra.Command, arg
 
 func Ec2Client(cmd *cobra.Command, args []string) (context.Context, *ec2.Client) {
 
-	region, err := cmd.Flags().GetString("region")
 	ctx := context.TODO()
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatal("Config Error Occured", err)
 	}
+
+	region := cmd.Root().PersistentFlags().Lookup("region").Value.String()
+
 	if region != "" {
 		opts := func(o *ec2.Options) {
 			o.Region = region
