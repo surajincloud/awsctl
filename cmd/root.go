@@ -26,5 +26,5 @@ func Execute() {
 
 func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	rootCmd.PersistentFlags().String("region", "", "--region=us-east-1")
+	rootCmd.PersistentFlags().String("region", "", "Search resources in a specific region")
 }
