@@ -27,7 +27,7 @@ func getVPC(cmd *cobra.Command, args []string) error {
 	w := tabwriter.NewWriter(os.Stdout, 18, 5, 2, ' ', tabwriter.TabIndent)
 	defer w.Flush()
 
-	fmt.Fprintln(w, "NAME", "\t", "State", "\t", "DEFAULT", "\t", "IPv4CIDR", "\t", "VPCID")
+	fmt.Fprintln(w, "NAME", "\t", "STATE", "\t", "DEFAULT", "\t", "IPv4CIDR", "\t", "VPCID")
 	for _, i := range vpclist {
 		fmt.Fprintln(w,
 			aws.String(*i.Name), "\t",
