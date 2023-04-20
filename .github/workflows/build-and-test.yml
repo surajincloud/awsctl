@@ -1,0 +1,34 @@
+name: Go Build and Test
+on:
+  push: 
+    branches:
+      - main
+  pull_request:
+
+env:
+  #CGO_ENABLED is set to 0 to disable cgo and ensure the binary is fully static
+  CGO_ENABLED: 0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.17.0'
+
+      - name: Install dependencies
+        run: |
+          go mod download
+
+      - name : Unit Tests
+        run: |
+          go test ./... -cover
+
+      - name: Build the Go application
+        run: |
+          go build -o awsctl -ldflags="-s -w" main.go
