@@ -1,0 +1,24 @@
+name: gofmt
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - main
+  pull_request:
+permissions:
+  contents: read
+  # Optional: allow read access to pull request. Use with `only-new-issues` option.
+  # pull-requests: read
+jobs:
+  format:
+    name: gofmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v4
+        with: 
+          go-version: "1.17.2"
+      - uses: actions/checkout@v3
+      - name: gofmt
+        run: |
+          go fmt ./...
