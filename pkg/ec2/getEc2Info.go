@@ -66,16 +66,6 @@ func Ec2Client(cmd *cobra.Command, args []string) (context.Context, *ec2.Client)
 	if err != nil {
 		log.Fatal("Config Error Occured", err)
 	}
-
-	region := cmd.Root().PersistentFlags().Lookup("region").Value.String()
-
-	if region != "" {
-		opts := func(o *ec2.Options) {
-			o.Region = region
-		}
-		Ec2client := ec2.NewFromConfig(cfg, opts)
-		return ctx, Ec2client
-	}
 	Ec2client := ec2.NewFromConfig(cfg)
 	return ctx, Ec2client
 }

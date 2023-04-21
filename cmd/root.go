@@ -15,6 +15,12 @@ var rootCmd = &cobra.Command{
 	Short: "AWS CLI written in Go",
 	Long: `AWS CLI written in
 	       Golang`,
+	PersistentPreRun: func(cmd *cobra.Command, args []string){
+		region := cmd.Root().PersistentFlags().Lookup("region").Value.String()
+		if region!=""{
+			os.Setenv("AWS_DEFAULT_REGION",region)
+		}
+	},
 }
 
 func Execute() {
