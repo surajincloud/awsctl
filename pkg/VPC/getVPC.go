@@ -36,9 +36,9 @@ func GetVPC() ([]Vpc, error) {
 	for _, i := range info.Vpcs {
 		for _, j := range i.Tags {
 			if *j.Key == "Name" {
-				vpcList = append(vpcList, Vp
+				getVpc = append(getVpc, Vpc{
 					Name:     aws.String(*j.Value),
-					State:    aws.String(string(*&i.State)),
+					State:    aws.String(string(i.State)),
 					Ipv4Cidr: aws.String(*i.CidrBlock),
 					Default:  *i.IsDefault,
 					VpcID:    aws.String(*i.VpcId),
@@ -48,6 +48,6 @@ func GetVPC() ([]Vpc, error) {
 		}
 	}
 
-	return vpcList, err
+	return getVpc, err
 
 }

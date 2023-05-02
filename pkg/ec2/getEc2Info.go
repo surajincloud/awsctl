@@ -15,6 +15,7 @@ type EC2Instance struct {
 	InstanceID        string
 	InstanceType      string
 	InstancePrivateIP string
+	InstanceStatus    string
 }
 
 func DescribeInstance(tagName string, tagValue []string, cmd *cobra.Command, args []string) []EC2Instance {
@@ -39,8 +40,9 @@ func DescribeInstance(tagName string, tagValue []string, cmd *cobra.Command, arg
 								ec2Instance = append(ec2Instance, EC2Instance{
 									InstanceName:      aws.ToString(j.Value),
 									InstanceID:        aws.ToString(i.InstanceId),
-									InstanceType:      *aws.String(string(*&i.InstanceType)),
-									InstancePrivateIP: aws.ToString(*&i.PrivateIpAddress),
+									InstanceType:      *aws.String(string(i.InstanceType)),
+									InstancePrivateIP: aws.ToString(i.PrivateIpAddress),
+									InstanceStatus: aws.ToString((*string)(&i.State.Name)),
 								})
 							}
 						}
@@ -48,8 +50,9 @@ func DescribeInstance(tagName string, tagValue []string, cmd *cobra.Command, arg
 						ec2Instance = append(ec2Instance, EC2Instance{
 							InstanceName:      aws.ToString(j.Value),
 							InstanceID:        aws.ToString(i.InstanceId),
-							InstanceType:      *aws.String(string(*&i.InstanceType)),
-							InstancePrivateIP: aws.ToString(*&i.PrivateIpAddress),
+							InstanceType:      *aws.String(string(i.InstanceType)),
+							InstancePrivateIP: aws.ToString(i.PrivateIpAddress),
+							InstanceStatus: aws.ToString((*string)(&i.State.Name)),
 						})
 					}
 				}

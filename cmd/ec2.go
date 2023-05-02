@@ -29,9 +29,9 @@ func getEC2(cmd *cobra.Command, args []string) {
 	if Keys!="" && strings.Contains(Keys, "=") {
 		tags := strings.SplitN(Keys, "=", 2)
 		value := strings.Split(tags[1], ",")
-		ec2Instance = ec2.DescribeInstance(*&tags[0], value,cmd,args)
+		ec2Instance = ec2.DescribeInstance(tags[0], value,cmd,args)
 	} else if Keys!=""{
-		ec2Instance = ec2.DescribeInstance(*&Keys, nil,cmd,args)
+		ec2Instance = ec2.DescribeInstance(Keys, nil,cmd,args)
 	}else{
 		ec2Instance = ec2.DescribeInstance("", nil,cmd,args)
 	}
@@ -39,13 +39,15 @@ func getEC2(cmd *cobra.Command, args []string) {
 	w := tabwriter.NewWriter(os.Stdout, 18, 5, 3, ' ', tabwriter.TabIndent)
 	defer w.Flush()
 
-	fmt.Fprintln(w, "NAME", "\t", "INSTANCE_ID", "\t", "INSTANCE_TYPE", "\t", "PRIVATE IP")
+	fmt.Fprintln(w, "NAME", "\t", "INSTANCE_ID", "\t", "INSTANCE_TYPE", "\t", "PRIVATE IP","\t", "INSTANCE_STATUS")
 	for _, i := range ec2Instance {
 		fmt.Fprintln(
 			w, i.InstanceName, "\t",
 			i.InstanceID, "\t",
 			i.InstanceType, "\t",
-			i.InstancePrivateIP)
+			i.InstancePrivateIP, "\t",
+			i.InstanceStatus,
+		)
 	}
 
 }
