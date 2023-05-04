@@ -19,7 +19,7 @@ type Vpc struct {
 
 func GetVPC() ([]Vpc, error) {
 
-	var getVpc []Vpc
+	var vpcList []Vpc
 
 	ctx := context.TODO()
 	cfg, err := config.LoadDefaultConfig(ctx)
@@ -36,7 +36,7 @@ func GetVPC() ([]Vpc, error) {
 	for _, i := range info.Vpcs {
 		for _, j := range i.Tags {
 			if *j.Key == "Name" {
-				getVpc = append(getVpc, Vpc{
+				vpcList = append(vpcList, Vpc{
 					Name:     aws.String(*j.Value),
 					State:    aws.String(string(i.State)),
 					Ipv4Cidr: aws.String(*i.CidrBlock),
@@ -48,6 +48,6 @@ func GetVPC() ([]Vpc, error) {
 		}
 	}
 
-	return getVpc, err
+	return vpcList, err
 
 }
