@@ -29,11 +29,11 @@ func getEC2(cmd *cobra.Command, args []string) {
 	if Keys!="" && strings.Contains(Keys, "=") {
 		tags := strings.SplitN(Keys, "=", 2)
 		value := strings.Split(tags[1], ",")
-		ec2Instance = ec2.DescribeInstance(*&tags[0], value)
+		ec2Instance = ec2.DescribeInstance(*&tags[0], value,cmd,args)
 	} else if Keys!=""{
-		ec2Instance = ec2.DescribeInstance(*&Keys, nil)
+		ec2Instance = ec2.DescribeInstance(*&Keys, nil,cmd,args)
 	}else{
-		ec2Instance = ec2.DescribeInstance("", nil)
+		ec2Instance = ec2.DescribeInstance("", nil,cmd,args)
 	}
 	
 	w := tabwriter.NewWriter(os.Stdout, 18, 5, 3, ' ', tabwriter.TabIndent)
