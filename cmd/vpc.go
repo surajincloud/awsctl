@@ -8,7 +8,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/spf13/cobra"
-	"github.com/surajincloud/awsctl/pkg/VPC"
+	"github.com/surajincloud/awsctl/pkg/vpc"
 )
 
 var vpcCmd = &cobra.Command{
