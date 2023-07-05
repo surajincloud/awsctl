@@ -15,9 +15,28 @@ var sgCmd = &cobra.Command{
 	Use:   "sg",
 	Short: "Print Security Groups",
 	Long: `
-		For Example: $ awsctl get sg
+		For Example: $ awsctl get securitygroup
+					 $ awsctl get securitygroups
+					 $ awsctl get sg
 	`,
 	Run: getSG,
+}
+
+var securitygrp=&cobra.Command{
+	Use: "securitygroup",
+	Short: "Print Security Groups",
+	Run: getSG,
+}
+var securitygrps=&cobra.Command{
+	Use:"securitygroups",
+	Short: "Print Security Groups",
+	Run:getSG,
+}
+
+var group=[]*cobra.Command{
+	securitygrp,
+	securitygrps,
+	sgCmd,
 }
 
 func getSG(cmd *cobra.Command, args []string) {
@@ -45,6 +64,8 @@ func getSG(cmd *cobra.Command, args []string) {
 
 }
 
+
+
 func init() {
-	getCmd.AddCommand(sgCmd)
+	getCmd.AddCommand(group...)
 }
